@@ -1,10 +1,16 @@
 "use strict";
-const app = require("./app");
 
-app.listen(app.get("port"), () => {
+const app = require("./app");
+const Connection = require("./database");
+
+async function main() {
   try {
-    console.log("servidor encendido en puerto " + app.get("port"));
+    Connection.conectar();
+    await app.listen(app.get("port"));
+    console.log(`Server funcionando en puerto ${app.get("port")}. `);
   } catch (error) {
     console.log(error);
   }
-});
+}
+
+main();
