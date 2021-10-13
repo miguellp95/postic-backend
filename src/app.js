@@ -19,6 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 // routes
 app.use("/", require("./routes/indexRoute"));
+app.use("/api/postic", require("./routes/productRoutes"));
 // static
 app.use("/public", express.static(path.resolve("public")));
 
