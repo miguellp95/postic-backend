@@ -39,5 +39,21 @@ controller.newProduct = async (req, res) => {
 
   res.status(statusCode).json(result);
 };
+controller.fetchProducts =async (req, res) => {
+	let statusCode,result;
+	const products=await ProductModel.find({});
+	if (products.length>0) {
+		statusCode=200;
+		result=products;
+		
+	} else {
+		statusCode=400;
+		result="No hay registros";		
+	}
+	res.status(statusCode).json(result);
+
+	
+}
+
 
 module.exports = controller;
