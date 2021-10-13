@@ -1,12 +1,10 @@
 "use strict";
 
 const mongoose = require("mongoose");
-const model = mongoose.model();
-const Types = mongoose.Types;
 
 const schema = new mongoose.Schema(
   {
-    idUser: { type: Types.ObjectId },
+    idUser: { type: mongoose.Types.ObjectId },
     firstNameUser: { type: String, required: true },
     lastnameUser: { type: String, required: true },
     urlPictureUser: { type: String },
@@ -18,4 +16,4 @@ const schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = model("User", schema);
+module.exports = mongoose.model("User", schema);

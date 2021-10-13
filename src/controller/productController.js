@@ -5,17 +5,19 @@ const controller = {};
 
 controller.newProduct = async (req, res) => {
   let statusCode, result;
-  const data = req.body;
-  // const { idProducto,nombreProducto, descripcionProducto, state} = req.body;
-  if (data.nombreProducto && data.descripcionProducto && data.precioProducto) {
+
+  const { nombreProducto, descripcionProducto, precioProducto } = req.body;
+
+  if (nombreProducto && descripcionProducto && precioProducto) {
     const product = await ProductModel.findOne({
-      nombreProducto: data.nombreProducto,
+      nombreProducto: nombreProducto,
     });
+
     if (!product) {
       const productObj = new ProductModel({
-        nombreProducto: data.nombreProducto,
-        descripcionProducto: data.descripcionProducto,
-        precioProducto: data.precioProducto,
+        nombreProducto,
+        descripcionProducto,
+        precioProducto,
       });
 
       try {
