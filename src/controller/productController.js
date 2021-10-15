@@ -57,7 +57,7 @@ controller.fetchProducts = async (req, res) => {
 controller.update = async (req, res) => {
   let statusCode, result;
 
-  const products = await ProductModel.update({_id:req.params.idProducto},
+  const products = await ProductModel.updateOne({_id:req.params.idProducto},
         {$set:{
           nombreProducto:req.body.nombreProducto,
           descripcionProducto:req.body.descripcionProducto,
