@@ -8,7 +8,11 @@ const schema = new mongoose.Schema(
     nombreProducto: { type: String },
     descripcionProducto: { type: String },
     precioProducto: { type: Number },
-    state: { type: Boolean, default: true },
+    estadoProducto: {
+      type: String,
+      enum: ["Disponible", "Agotado"],
+      default: "Disponible",
+    },
   },
   { timestamps: true }
 );
