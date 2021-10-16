@@ -20,6 +20,7 @@ app.use(cors());
 // routes
 app.use("/", require("./routes/indexRoute"));
 app.use("/api/postic", require("./routes/productRoutes"));
+app.use("/api/postic", require("./routes/userRoutes"));
 // static
 app.use("/public", express.static(path.resolve("public")));
 

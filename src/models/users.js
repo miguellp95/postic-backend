@@ -5,13 +5,12 @@ const mongoose = require("mongoose");
 const schema = new mongoose.Schema(
   {
     idUser: { type: mongoose.Types.ObjectId },
-    firstNameUser: { type: String, required: true },
-    lastnameUser: { type: String, required: true },
-    urlPictureUser: { type: String },
-    emailUser: { type: String, required: true },
-    emailVerificado: true,
-    rol: { type: String, required: true, default: "cliente" },
-    state: { type: Boolean, default: true },
+    nombresUsuario: { type: String, required: true },
+    apellidosUsuario: { type: String, required: true },
+    urlFotoUsuario: { type: String },
+    emailUsuario: { type: String, required: true },
+    rolUsuario: { type: String, enum:['Administrador','Vendedor','Cliente'] },
+    estadoUsuario: { type: Boolean, default: true },
   },
   { timestamps: true }
 );
