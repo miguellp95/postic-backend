@@ -3,6 +3,9 @@
 const router = require("express").Router();
 const HomeController = require("../controller/indexController");
 
-router.get("/", HomeController);
+
+router.get("/", HomeController)
+  
+
 
 module.exports = router;
