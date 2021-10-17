@@ -22,7 +22,7 @@ controller.newUser = async (req, res) => {
     const user = await UserModel.findOne({ emailUsuario });
 
     if (!user) {
-      const userObj = new ProductModel({
+      const userObj = new UserModel({
         nombresUsuario,
         apellidosUsuario,
         urlFotoUsuario,
