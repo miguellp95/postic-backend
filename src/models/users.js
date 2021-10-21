@@ -9,6 +9,7 @@ const schema = new mongoose.Schema(
     apellidosUsuario: { type: String, required: true },
     urlFotoUsuario: { type: String },
     emailUsuario: { type: String, required: true },
+    emailVerificadoUsuario: { type: Boolean , required : true},
     rolUsuario: { type: String, enum:['Administrador','Vendedor','Cliente'], default: 'Cliente'},
     estadoUsuario: { type: String, enum:['Activo', 'Inactivo'], default :'Activo' },
   },

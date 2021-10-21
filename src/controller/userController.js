@@ -11,7 +11,8 @@ controller.newUser = async (req, res) => {
     apellidosUsuario,
     urlFotoUsuario,
     emailUsuario,
-    rolUsuario
+    emailVerificadoUsuario,
+    rolUsuario,
   } = req.body;
 
   if (!rolUsuario) {
@@ -27,7 +28,8 @@ controller.newUser = async (req, res) => {
         apellidosUsuario,
         urlFotoUsuario,
         emailUsuario,
-        rolUsuario ,
+        emailVerificadoUsuario,
+        rolUsuario,
       });
 
       try {
@@ -69,6 +71,7 @@ controller.updateUser = async (req, res) => {
     apellidosUsuario,
     urlFotoUsuario,
     emailUsuario,
+    emailVerificadoUsuario,
     rolUsuario,
     estadoUsuario,
   } = req.body;
@@ -76,10 +79,11 @@ controller.updateUser = async (req, res) => {
     const user = await UserModel.findById(idUser);
     if (user) {
       if (nombresUsuario) user.nombresUsuario = nombresUsuario;
-      if (apellidosUsuario)
-        user.apellidosUsuario = apellidosUsuario;
+      if (apellidosUsuario) user.apellidosUsuario = apellidosUsuario;
       if (urlFotoUsuario) user.urlFotoUsuario = urlFotoUsuario;
       if (emailUsuario) user.emailUsuario = emailUsuario;
+      if (emailVerificadoUsuario)
+        user.emailVerificadoUsuario = emailVerificadoUsuario;
       if (rolUsuario) user.rolUsuario = rolUsuario;
       if (estadoUsuario) user.estadoUsuario = estadoUsuario;
 
