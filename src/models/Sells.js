@@ -2,17 +2,35 @@
 
 const mongoose = require("mongoose");
 
-const schema = new mongoose.Schema(
-  {
-    idUser: { type: mongoose.Types.ObjectId },
-    nombresUsuario: { type: String, required: true },
-    apellidosUsuario: { type: String, required: true },
-    urlFotoUsuario: { type: String },
-    emailUsuario: { type: String, required: true },
-    rolUsuario: { type: String, enum:['Administrador','Vendedor','Cliente'], default: 'Cliente'},
-    estadoUsuario: { type: String, enum:['Activo', 'Inactivo'], default :'Activo' },
-  },
-  { timestamps: true }
-);
+let Schema = mongoose.Schema;
 
-module.exports = mongoose.model("Sells", schema);
+let ventaSchema = new Schema({
+  idVenta: { type: mongoose.Types.ObjectId },
+  valorTotalVenta: { type: Number, required: true },
+  fechaVenta: {
+    type: Date,
+    default: Date.now,
+  },
+  vendedorVenta: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+  idClienteVenta: { type: String, required: true },
+  nombreClienteVenta: { type: String, required: true },
+  productos: [
+    {
+      idProducto: {
+        type: Schema.Types.ObjectId,
+        ref: "Producto",
+      },
+      cantidadProducto: { type: Number, required: true },
+    },
+  ],
+  estadoVenta: {
+    type: String,
+    enum: ["Pendiente", "Cobrado", "Anulado"],
+    default: "Pendiente",
+  }
+});
+
+module.exports = mongoose.model("Venta", ventaSchema);

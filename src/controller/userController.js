@@ -82,7 +82,8 @@ controller.updateUser = async (req, res) => {
       if (apellidosUsuario) user.apellidosUsuario = apellidosUsuario;
       if (urlFotoUsuario) user.urlFotoUsuario = urlFotoUsuario;
       if (emailUsuario) user.emailUsuario = emailUsuario;
-      if (emailVerificadoUsuario) user.emailVerificadoUsuario = emailVerificadoUsuario;
+      if (emailVerificadoUsuario)
+        user.emailVerificadoUsuario = emailVerificadoUsuario;
       if (rolUsuario) user.rolUsuario = rolUsuario;
       if (estadoUsuario) user.estadoUsuario = estadoUsuario;
 
