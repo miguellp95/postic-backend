@@ -13,6 +13,10 @@ const schema = new mongoose.Schema(
       enum: ["Disponible", "Agotado"],
       default: "Disponible",
     },
+   // User : {
+      //type: Schema.Types.ObjectId,//solo insertable
+      //ref : "User"
+  //}
   },
   { timestamps: true }
 );
