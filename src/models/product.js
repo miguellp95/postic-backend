@@ -13,6 +13,7 @@ const schema = new mongoose.Schema(
       enum: ["Disponible", "Agotado"],
       default: "Disponible",
     },
+    idVendedor: { type: String, required: true}
   },
   { timestamps: true }
 );

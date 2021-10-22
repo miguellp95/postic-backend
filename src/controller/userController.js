@@ -5,15 +5,18 @@ const controller = {};
 
 controller.newUser = async (req, res) => {
   let statusCode, result;
-
-  const {
-    nombresUsuario,
-    apellidosUsuario,
+  let {
+    idUser,
+    nombreCompleto,
     urlFotoUsuario,
     emailUsuario,
     emailVerificadoUsuario,
     rolUsuario,
+
   } = req.body;
+
+
+
 
   if (!rolUsuario) {
     rolUsuario = "Cliente";
@@ -24,12 +27,13 @@ controller.newUser = async (req, res) => {
 
     if (!user) {
       const userObj = new UserModel({
-        nombresUsuario,
-        apellidosUsuario,
+        idUser,
+        nombreCompleto,
         urlFotoUsuario,
         emailUsuario,
         emailVerificadoUsuario,
         rolUsuario,
+        estadoUsuario: "Activo"
       });
 
       try {
@@ -54,6 +58,7 @@ controller.newUser = async (req, res) => {
 controller.fetchUsers = async (req, res) => {
   let statusCode, result;
   const users = await UserModel.find({});
+
   if (users.length > 0) {
     statusCode = 200;
     result = users;

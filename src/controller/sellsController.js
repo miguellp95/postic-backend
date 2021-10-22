@@ -16,7 +16,8 @@ controller.newSell = async (req, res) => {
 
     productos.map( producto => {
       objProducts.push({
-        idProducto= producto.idProducto , cantidadProducto = producto.cantidadProducto
+        idProducto: producto.idProducto,
+        cantidadProducto :producto.cantidadProducto
       })
     });
   
