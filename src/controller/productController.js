@@ -1,27 +1,29 @@
 "use strict";
 const ProductModel = require("../models/product");
+const UserModel = require("../models/users");
 
 const controller = {};
 
 controller.newProduct = async (req, res) => {
   let statusCode, result;
 
-  const { nombreProducto, descripcionProducto, precioProducto, idVendedor } = req.body;
+  const { nombreProducto, descripcionProducto, precioProducto, estadoProducto, idUser } = req.body;
 
   if (nombreProducto && descripcionProducto && precioProducto) {
     const product = await ProductModel.findOne({
       nombreProducto: nombreProducto,
     });
-    
+
     try {
-      const user = await UserModel.findById(idVendedor);
- 
-      if (!product && user.emailVerificadoUsuario) {
+      const user = await UserModel.findOne({ idUser });
+
+      if (!product && user.emailVerificadoUsuario === true) {
         const productObj = new ProductModel({
           nombreProducto,
           descripcionProducto,
           precioProducto,
-          idVendedor
+          estadoProducto,
+          idUsers:idUser
 
         });
         user.rolUsuario = "Vendedor";
@@ -38,6 +40,7 @@ controller.newProduct = async (req, res) => {
         statusCode = 400;
         result = "Ya existe un producto con ese nombre";
       }
+
     } catch (error) {
       statusCode = 500;
       result = { message: "Server Error ", error };
@@ -57,47 +60,34 @@ controller.fetchProducts = async (req, res) => {
   if (products.length > 0) {
     statusCode = 200;
     result = products;
-    /*try {
-      const user = await UserModel.findById(result.idVendedor);
-      if (user) {
-        result.estadoUsuario = user.estadoUsuario;
-        result.emailUsuario = user.emailUsuario;
-      }
-    } catch (error) {
-      statusCode = 500;
-      result = { message: "Server Error ", error };
-    }*/
+
   } else {
     statusCode = 400;
     result = "No hay registros";
   }
   res.status(statusCode).json(result);
 };
+
 controller.updateProduct = async (req, res) => {
   let statusCode, result;
-  const { idProducto } = req.params;
-  const { nombreProducto, descripcionProducto, precioProducto, estadoProducto, idVendedor } =
+  const { idUser } = req.params;
+  const { nombreProducto, descripcionProducto, precioProducto, estadoProducto } =
     req.body;
   try {
-    const product = await ProductModel.findById(idProducto);
-    if (product.idVendedor == idVendedor) {
-      if (product) {
-        if (nombreProducto) product.nombreProducto = nombreProducto;
-        if (descripcionProducto)
-          product.descripcionProducto = descripcionProducto;
-        if (precioProducto) product.precioProducto = precioProducto;
-        if (estadoProducto) product.estadoProducto = estadoProducto;
+    const product = await ProductModel.findOne({ idUsers:idUser });
+    if (product) {
+      if (nombreProducto) product.nombreProducto = nombreProducto;
+      if (descripcionProducto)
+        product.descripcionProducto = descripcionProducto;
+      if (precioProducto) product.precioProducto = precioProducto;
+      if (estadoProducto) product.estadoProducto = estadoProducto;
 
-        product.save();
-        statusCode = 200;
-        result = "Producto actualizado exitosamente.";
-      } else {
-        statusCode = 400;
-        result = "El producto no existe.";
-      }
+      product.save();
+      statusCode = 200;
+      result = "Producto actualizado exitosamente.";
     } else {
       statusCode = 400;
-      result = "No tiene permiso para editar este producto.";
+      result = "El producto no existe.";
     }
   } catch (error) {
     statusCode = 500;
@@ -111,7 +101,6 @@ controller.delete = async (req, res) => {
   const { id } = req.params;
   try {
     const product = await ProductModel.findById(id);
-    //if (product.idVendedor == idVendedor) {
     if (product) {
       product.remove();
       statusCode = 200;
@@ -120,10 +109,7 @@ controller.delete = async (req, res) => {
       statusCode = 400;
       result = "El producto no existe.";
     }
-    /*} else {
-      statusCode = 400;
-      result = "No tiene permiso para eliminar este producto.";
-    }*/
+
   } catch (error) {
     statusCode = 500;
     result = { error: "Server error", message: "El producto no existe." };

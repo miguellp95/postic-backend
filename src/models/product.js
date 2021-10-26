@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema(
   {
-    idProducto: { type: mongoose.Types.ObjectId },
     nombreProducto: { type: String },
     descripcionProducto: { type: String },
     precioProducto: { type: Number },
@@ -13,7 +12,7 @@ const schema = new mongoose.Schema(
       enum: ["Disponible", "Agotado"],
       default: "Disponible",
     },
-    idVendedor: { type: String, required: true}
+    idUsers: { type: String, required: true}
   },
   { timestamps: true }
 );
